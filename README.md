@@ -119,3 +119,62 @@ Free open-source cross-platform cheat software for **Valorant** game. Designed a
     *   **Purchase List** - show the purchased equipment by enemies
     
   
+</details>
+
+## Getting started
+
+### Prerequisites
+Microsoft Visual Studio 2019 16.10 (or newer), platform toolset v142 and Windows SDK 10.0.x.x are required in order to compile Osiris. If you don't have ones, you can download VS [here](https://visualstudio.microsoft.com/) (Windows SDK is installed during Visual Studio Setup).
+
+### Downloading
+
+There are two options of downloading the source code:
+
+#### Without [git](https://git-scm.com)
+
+Choose this option if you want pure source and you're not going to contribute to the repo. Download size ~600 kB.
+
+To download source code this way [click here](https://github.com/bl6ndr/Nicom/archive/master.zip).
+
+#### With [git](https://git-scm.com)
+
+Choose this option if you're going to contribute to the repo or you want to use version control system. Download size ~4 MB. Git is required to step further, if not installed download it [here](https://git-scm.com).
+
+Open git command prompt and enter following command:
+
+    git clone --depth=1 https://github.com/bl6ndr/Nicom.git
+
+`Nicom` folder should have been successfully created, containing all the source files.
+
+### Compiling from source
+
+When you have equipped a copy of the source code, next step is opening **DaddyKermitsInternal.sln** and **internal.sln** in Microsoft Visual Studio 2019.
+
+Then change build configuration to `Release | x86` and simply press **Build solution**.
+
+If everything went right you should receive `Nicom.dll`  binary file.
+
+### Loading / Injecting into game process
+
+Open your favorite [DLL injector](https://en.wikipedia.org/wiki/DLL_injection) and just inject `Nicom.dll` into `valorant.exe` process.
+
+When injected, menu is openable under `INSERT` key.
+
+### Further optimizations
+If your CPU supports AVX / AVX2 / AVX-512 instruction set, you can enable it in project settings. This should result in more performant code, optimized for your CPU. Currently SSE2 instructions are selected in project settings.
+
+## FAQ
+
+### How do I open menu?
+Press <kbd>INSERT</kbd> while focused on CS:GO window.
+
+### Where is my config file saved?
+Configuration files are saved inside `Nicom` folder in your `Documents` folder (`%USERPROFILE%\Documents\Nicom`). The config is in human readable format and can be edited (e.g, using notepad). Sometimes after updates configuration file needs to be deleted and recreated.
+
+### What hooking methods Nicom uses?
+Currently implemented hooking methods are:
+*   MinHook - trampoline hook
+*   VmtHook - hook a function directly in a vtable
+*   VmtSwap - create a copy of a vtable and swap the pointer on the class instance
+
+Hooking implementation files are located in [Hooks](Source/Hooks) directory.
